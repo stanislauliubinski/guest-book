@@ -1,0 +1,103 @@
+@import "~src/assets/css/colors.scss";
+
+.container,
+.comments {
+    width: 50%;
+    height: auto;
+    height: 100%;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+
+
+    .post,
+    .comment {
+        padding: 20px;
+        padding-bottom: 0;
+        width: 90%;
+        background-color: $grey;
+        margin-bottom: 20px;
+        border-left: 4px solid $dark-blue;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+
+        &__title {
+            margin-bottom: 20px;
+        }
+
+        &__author {
+            margin: 0;
+            padding: 0;
+            margin-bottom: 20px;
+            height: 45px;
+            width: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            
+            &__image-container {
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                background-color: $light-blue;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                align-content: center; 
+            }
+
+            &-image {
+                height: 45px;
+                width: 45px;
+                background-color: $light-blue;
+            }
+
+            &__info-container {
+                margin-left: 10px;
+            }
+
+            &-name {
+                margin: 0;
+                padding: 0;
+                align-self: flex-start;
+            }
+
+            &-email {
+                margin: 0;
+                bottom: 10px;
+                padding: 0;
+                align-self: flex-end;
+                
+            }
+        }
+
+        &__text {
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.3px;
+            padding: 0;
+            margin: 0;
+            padding-bottom: 20px;
+            border-bottom: 2px solid $dark-blue;
+        }
+
+        .btn {
+            float: right;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .btn-delete {
+            margin-right: 10px;
+            background-color: #d21f3c;
+            color: $milk;
+            border: none;
+        }
+    }
+
+    
+}
+
+
+
+

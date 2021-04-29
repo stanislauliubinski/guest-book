@@ -1,0 +1,27 @@
+<section class="container">
+    <form action="post" class="form" [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+        <h2>Write a review</h2>
+        <label class="form__label" for="title">Add title</label>
+        <input class="form__input" type="text" id="title" formControlName="title">
+        <div *ngIf="reviewForm.get('title').invalid" class="form__warning">
+            <small  *ngIf="reviewForm.get('title').errors.required && reviewForm.get('title').touched">
+                Title is required
+            </small>
+            <small class="form__warning" *ngIf="reviewForm.get('title').errors.maxlength && reviewForm.get('title').touched">
+                Title cannot contain more than 255 characters
+            </small>
+        </div>
+
+        <label class="form__label" for="content">Message</label>
+        <textarea id="content" formControlName="message" maxlength="65535" rows="20"></textarea>
+        <div *ngIf="reviewForm.get('message').invalid" class="form__warning">
+            <small  *ngIf="reviewForm.get('message').errors.required && reviewForm.get('message').touched">
+                Please add a message
+            </small>
+        </div>
+        
+        <button class="btn" type="submit">Post review</button>
+    </form>
+</section>
+
+

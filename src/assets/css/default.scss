@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "FiraSans-Regular";
+    font-size: 16px;
+    line-height: 14px;
+    background-color: $milk;  
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    h2 {
+        font-size: 30px;
+        line-height: 30px;
+        margin: 0;
+        margin-bottom: 30px;
+        color: $dark-blue;
+        padding: 0;
+        font-family: "FiraSans-Medium";
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    textarea:focus,
+    textarea:hover {
+        outline: none;
+        
+    }
+
+    textarea {
+        padding: 15px 5px;
+        border: 2px solid $dark-blue;
+        line-height: 16px;
+        font-size: 16px;
+        font-family: "FiraSans-Regular";
+        resize: none;
+    }
+
+    .container {
+        width: 35%;
+        background-color: $grey;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn {
+        width: 100px;
+        height: 45px;
+        align-self: center;
+        margin-top: 30px;
+        background-color: $milk;
+        border: 2px solid $dark-blue;
+        text-transform: uppercase;
+        color: $dark-blue;
+        font-family: "FiraSans-Medium";
+    }
+
+    .active {
+        color: $light-blue;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        color: $dark-blue;
+        width: 80%;
+        font-family: "FiraSans-Medium";
+    
+        &__label {
+            margin-bottom: 10px;
+            margin-top: 20px
+        }
+    
+        &__input {
+            color: $dark-blue;
+            width: 100%;
+            border: 2px solid $dark-blue;
+            height: 45px;
+            
+            line-height: 16px;
+            font-size: 16px;
+            padding-left: 5px;
+        }
+    
+        &__input:focus {
+            outline: none;
+        }  
+        
+        &__warning {
+            color: red;
+            font-family: "FiraSans-Regular";
+            padding-top: 10px;
+        }
+    }
+}
+
+input, textarea {
+    &.ng-invalid.ng-touched {
+        border: 2px solid red;
+    }
+
+    &.ng-valid.ng-touched {
+        border: 2px solid green;
+    }
+}
+
+.first-letter {
+    color: $milk;
+    font-size: 24px;
+    font-family: "FiraSans-Light";
+}

@@ -1,0 +1,35 @@
+<section class="container">
+
+  <div *ngIf="this.posts === undefined">
+    <p class="title">
+      Loading...
+    </p>
+  </div>
+
+  <article *ngFor="let post of posts?.data 
+    | paginate: {itemsPerPage: 15, currentPage: posts?.meta?.current_page, totalItems: posts?.meta?.total}" 
+      class="post">
+    <h2 class="post__title">{{ post.title }}</h2>
+    <div class="post__author">
+      <div class="post__author__image-container">
+          <img *ngIf="post.user.avatar !== noAvatar; else placeholder" class="post__author-image" [src]="post.user.avatar">
+      </div>
+      <div class="post__author__info-container">
+          <p class="post__author-name">{{ post.user.name }}</p>
+          <small class="post__author-email">{{ post.user.email }}</small>
+      </div>
+    </div>
+    <p class="post__text">{{ post.message }}</p>
+    <button (click)="showCommentsFunc(post.id)" class="btn ">{{ this.commentsStatus }}</button>
+    <button *ngIf="post.user.id.toString() === this.userId || this.isAdmin === '1'" class="btn btn-delete" (click)="remove(post.id)">Delete</button>
+    
+    <app-post-comments *ngIf="this.currentId.includes(post.id)" [currentPost]="post" [pageInfo]="pageInfo"></app-post-comments>
+  
+    <ng-template #placeholder>
+      <p class="first-letter">{{post.user.name.charAt(0)}}</p>
+    </ng-template>
+  </article> 
+  
+</section>
+
+<pagination-controls *ngIf="this.posts !== undefined" (pageChange)="handlePageChange($event)"></pagination-controls>

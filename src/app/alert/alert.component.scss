@@ -1,0 +1,28 @@
+@import "~src/assets/css/colors.scss";
+
+.alert-container {
+    max-width: 100px;
+    position: fixed;
+    top: 40px;
+    right: 50px;
+
+    .alert {
+        padding: 5px 10px;
+        text-align: center;
+        p {
+            color: $milk;
+        }
+
+        &-success {
+            background-color: green;
+        }
+
+        &-warning {
+            background-color: orange;
+        }
+
+        &-failure {
+            background-color: red;
+        }
+    }
+}

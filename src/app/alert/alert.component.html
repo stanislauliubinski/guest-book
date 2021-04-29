@@ -1,0 +1,11 @@
+<div class="alert-container" *ngIf="text">
+    <div class="alert"
+        [ngClass]="{
+            'alert-success': type === 'success',
+            'alert-warning': type === 'warning',
+            'alert-failure': type === 'failure'
+        }"
+    >
+        <p>{{ text }}</p>
+    </div>
+</div>

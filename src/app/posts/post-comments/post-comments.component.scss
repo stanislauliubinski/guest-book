@@ -1,0 +1,104 @@
+@import "../posts.component.scss";
+@import "~src/assets/css/colors.scss";
+
+.comments {
+    font-size: 14px;
+    line-height: 12px;
+    margin-top: 85px;
+    background-color: $milk;
+    border-top: 2px solid $dark-blue;
+    margin-bottom: 20px;
+    width: auto;
+    padding: 0;
+    padding-bottom: 20px;
+    color: $dark-blue;
+
+    .comment-container {
+        margin: 10px 20px 20px 20px;
+        padding: 0;
+        display: flex;   
+        flex-direction: column;    
+
+        .comment__author {  
+            margin-bottom: 5px; 
+            &__image-container {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        .comment__text {
+            margin-left: 40px;
+            margin-right: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid $grey;
+            font-size: 14px;
+        }
+
+        .btn-delete {
+            height: 20px;
+            width: 50px;
+            font-size: 12px;
+            margin-top: 10px;
+            background-color: #d21f3c;
+            color: $milk;
+            border: none;
+            margin-right: 10px;
+            margin-left: auto;
+            font-family: "FiraSans-Regular";
+        }
+    }
+
+    .input-container {
+        margin: 0 30px;
+        display: flex;
+        flex-direction: column;
+        color: $dark-blue;
+        
+
+        &__label {
+            margin: 10px 0;
+            font-size: 16px;
+            font-family: "FiraSans-Medium";
+        }
+
+        &__textarea {
+            font-size: 14px;
+            line-height: 16px;
+            padding: 5px;
+            border: 2px solid $grey;
+
+            &.ng-invalid.ng-touched {
+                border: 2px solid red;
+            }
+        
+            &.ng-valid.ng-touched {
+                border: 2px solid green;
+            }
+        }
+
+        .btn {
+            margin-top: 10px;
+            align-self: flex-end;
+            border: none;
+            background-color: $grey;
+
+            &:hover {
+                background-color: $light-blue;
+                color: $grey;
+            }
+        }
+
+        
+    }
+}
+
+.title {
+    min-height: 20px;
+    font-family: "FiraSans-Medium";
+    font-size: 20px;
+    line-height: 20px;
+    margin: 30px 20px 20px 20px;
+    border-bottom: 2px solid $grey;
+    padding-bottom: 20px;
+}

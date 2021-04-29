@@ -1,0 +1,35 @@
+@import "~src/assets/css/colors.scss";
+
+.container {
+    width: 50%;
+    height: auto;
+    height: 100%;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+
+    .form {
+        padding: 20px;
+        width: 90%;
+        background-color: #dbe2ef;;
+        margin-bottom: 20px;
+        border-left: 4px solid $dark-blue;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+
+        &__input {
+            width: auto;
+        }
+
+        .btn {
+            align-self: flex-end;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+    }
+
+    quill-editor {
+        background-color: $milk;
+    }
+}

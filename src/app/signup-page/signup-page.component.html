@@ -1,0 +1,64 @@
+<section class="container">
+    <h2>Sign up to Guest Book</h2>
+    <form class="form" action="post" [formGroup]="signupForm" (ngSubmit)="submit()">
+
+        <label class="form__label" for="avatar">Avatar:</label>
+        <input class="form__input" type="file" id="avatar" formControlName="avatar" accept="image/png,image/jpeg, image/bmp" (change)="onFileChanged($event)">
+
+        <label class="form__label" for="name">Name:</label>
+        <input class="form__input" type="text" id="name" formControlName="name">
+
+            <div *ngIf="signupForm.get('name').invalid" class="form__warning">
+                <small *ngIf="signupForm.get('name').errors.required && signupForm.get('name').touched">
+                    This field is required
+                </small>
+                <small *ngIf="signupForm.get('name').errors.maxlength && signupForm.get('name').touched">
+                    This field cannot be longer than 255 characters
+                </small>
+            </div>
+
+        <label class="form__label" for="email">Email:</label>
+        <input class="form__input" type="email" id="email" formControlName="email">
+
+            <div *ngIf="signupForm.get('email').invalid" class="form__warning">
+                <small *ngIf="signupForm.get('email').errors.required && signupForm.get('email').touched">
+                    Email is required
+                </small>
+                <small *ngIf="signupForm.get('email').errors.email && signupForm.get('email').touched">
+                    Please enter a valid Email Adress
+                </small>
+                <small *ngIf="signupForm.get('email').errors.maxlength && signupForm.get('email').touched">
+                    Email cannot be longer than 255 characters
+                </small>
+            </div>
+
+        <label class="form__label" for="password">Password:</label>
+        <input class="form__input" type="password" id="password" formControlName="password">
+
+            <div *ngIf="signupForm.get('password').invalid" class="form__warning">
+                <small *ngIf="signupForm.get('password').errors.required && signupForm.get('password').touched">
+                    Password is required
+                </small>
+                <small *ngIf="signupForm.get('password').errors.minlength && signupForm.get('password').touched">
+                    Password must contain at least 8 characters
+                </small>
+                <small *ngIf="signupForm.get('password').errors.maxlength && signupForm.get('password').touched">
+                    Password cannot be longer than 255 characters
+                </small>
+            </div>
+
+        <label class="form__label" for="confirm-password">Confirm Password:</label>
+        <input class="form__input" type="password" id="confirm-password" formControlName="password_confirmation" (focusout)="confirmPassword()">
+
+            <div *ngIf="signupForm.get('password_confirmation').invalid" class="form__warning">
+                <small *ngIf="signupForm.get('password_confirmation').errors.incorrect">
+                    The passwords do not match
+                </small>
+                <small *ngIf="signupForm.get('password_confirmation').errors.required && signupForm.get('password_confirmation').touched">
+                    Please confirm your password
+                </small>
+            </div>
+
+        <button class="btn" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+</section>

@@ -1,0 +1,55 @@
+<section class="comments">
+  <h2 class="title">{{title}}</h2>
+    <div *ngIf="this.answers === undefined ">
+      <p class="title">
+        Loading...
+      </p>
+    </div>
+
+    <article class="comment-container"
+      *ngFor="let answer of answers?.data| paginate: {id: 'comments', itemsPerPage: 15, currentPage: answers?.meta.current_page , totalItems: currentPost.answers_count}">
+      <div class="comment__author">
+        <div class="comment__author__image-container">
+          <img class="comment__author-image" 
+            *ngIf="currentPost.user.avatar !== noAvatar; else placeholder" 
+            class="post__author-image" 
+            [src]="currentPost.user.avatar">
+        </div>
+        <div class="comment__author__info-container">
+          <p class="comment__author-name">{{answer?.user.name}}</p>
+          <small class="comment__author-email">{{answer?.user.email}}</small>
+        </div>
+      </div>
+      <p class="comment__text">{{answer.message}}</p>
+      <button *ngIf="answer?.user.id == this.userId || this.isAdmin === '1'" 
+        class="btn btn-delete" 
+        (click)="removeComment(answer.id, currentPost.id)">
+        Delete
+      </button>
+
+      <ng-template #placeholder>
+        <p class="first-letter">{{answer?.user?.name.charAt(0)}}</p>
+      </ng-template>
+    </article>
+
+  
+
+  <pagination-controls id="comments" *ngIf="currentPost.answers_count > 15" (pageChange)="handlePageChange($event)"></pagination-controls>
+
+  <form class="input-container" 
+    [formGroup]="commentForm" 
+    (ngSubmit)="submitComment()" 
+    *ngIf="this.currentPost.user.id.toString() === this.userId || this.isAdmin === '1'">
+    <label class="input-container__label" for="comment">Leave a comment</label>
+    <textarea class="input-container__textarea" formControlName="message" id="comment" cols="30" rows="5"></textarea>
+    <div *ngIf="commentForm.get('message').invalid" class="form__warning">
+      <small  *ngIf="commentForm.get('message').errors.required && commentForm.get('message').touched">
+        Please enter your comment
+      </small>
+    </div>
+
+    <button class="btn" type="submit" [disabled]="commentForm.invalid">Comment</button>
+  </form>
+</section>
+
+

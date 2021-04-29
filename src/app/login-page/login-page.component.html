@@ -1,0 +1,30 @@
+<section class="container">
+    <h2>Log into your account</h2>
+    <form class="form" action="post" [formGroup]="loginForm" (ngSubmit)="submit()">
+        <label class="form__label" for="email">Email:</label>
+        <input class="form__input" type="email" id="email" formControlName="email">
+
+        <div *ngIf="loginForm.get('email').invalid" class="form__warning">
+            <small  *ngIf="loginForm.get('email').errors.required && loginForm.get('email').touched">
+                Email is required
+            </small>
+            <small class="form__warning" *ngIf="loginForm.get('email').errors.email && loginForm.get('email').touched">
+                Please enter a valid email address
+            </small>
+        </div>
+        
+        <label class="form__label" for="password">Password:</label>
+        <input class="form__input" type="password" id="password" formControlName="password">
+
+        <div *ngIf="loginForm.get('password').invalid" class="form__warning">
+            <small  *ngIf="loginForm.get('password').errors.required && loginForm.get('password').touched">
+                Password is required
+            </small>
+            <small *ngIf="loginForm.get('password').errors.minlength && loginForm.get('password').touched">
+                Password must contain at least 8 characters
+            </small>
+        </div>
+        
+        <button class="btn" type="submit" [disabled]="loginForm.invalid">Log in</button>
+    </form>
+</section>
