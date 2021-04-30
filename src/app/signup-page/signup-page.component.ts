@@ -46,7 +46,7 @@ export class SignupPageComponent implements OnInit {
   onFileChanged(event) {
     const avatar: File = event.target.files[0];
     if (avatar.size > 1048576) {
-      this.alert.failure('Max file size is 10MB!')
+      this.alert.failure('Max file size is 1MB!')
       event.target.value = ''
       this.signupForm.get('avatar').setErrors({'incorrect': true})
     } else if (avatar) {
