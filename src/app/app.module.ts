@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
@@ -15,13 +15,16 @@ import { PostsComponent } from './posts/posts.component';
 import { AlertService } from './alert.service';
 import { AuthService } from './auth.service'
 import { SocketService } from './socket.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { HttpErrorInterceptor } from './http-error.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     SignupPageComponent,
-    AlertComponent
+    AlertComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,14 @@ import { SocketService } from './socket.service';
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
+    multi: true
+  },
+  {
+    provide: ErrorHandler
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpErrorInterceptor,
     multi: true
   }, AlertService, AuthService, SocketService, PostsComponent],
   bootstrap: [AppComponent]

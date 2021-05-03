@@ -1,0 +1,13 @@
+@import "~src/assets/css/colors.scss";
+
+.container {
+    &--error {
+        width: 80%;
+        background: transparent;  
+        box-shadow: none;  
+    }
+
+    a {
+        color: $dark-blue;
+    }
+}

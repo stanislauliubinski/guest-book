@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/alert.service';
 import { answers, newPost, pushPrivate, receivedAnswers, User } from 'src/app/interfaces';
@@ -38,8 +38,10 @@ export class PostCommentsComponent implements OnInit, OnDestroy {
     this.pushSub = this.socket.pushedDataPrivate.subscribe((e: pushPrivate) => {
       if (e.type === 'answer_added') {
         this.answers.data.push(e.data)
+        this.currentPost.answers_count++
       } else if (e.type === 'answer_deleted') {
         this.answers.data = this.answers.data.filter(answer => answer.id !== e.data.id)
+        this.currentPost.answers_count--
       }
     })
   }
@@ -83,18 +85,36 @@ export class PostCommentsComponent implements OnInit, OnDestroy {
       message: this.commentForm.value.message,
       user: currentUser
     }
-    this.idSub = this.postsService.answerIdSubject.subscribe((id) => {
-      if (!newComment.id) {
-        newComment.id = +id
+    if (this.commentForm.invalid) {
+      this.getFormValidationErrors()
+    } else {
+      this.idSub = this.postsService.answerIdSubject.subscribe((id) => {
+        if (!newComment.id) {
+          newComment.id = +id
+        }
+      })
+      this.submitSub = this.postsService.postComment(newComment, this.currentPost.id).subscribe(() => {
+        this.commentForm.reset(),
+        this.alert.success('Comment posted!')
+        if(this.isAdmin === '1' && this.currentPost.user.id.toString() !== this.userId) {
+          this.answers.data.push(newComment)
+        }
+      })
+    }
+  }
+
+  getFormValidationErrors(): string {
+    Object.keys(this.commentForm.controls).forEach(key => {
+  
+      const controlErrors: ValidationErrors = this.commentForm.get(key).errors;
+      if (controlErrors != null) {
+        Object.keys(controlErrors).forEach(() => {
+          this.commentForm.markAllAsTouched()
+        });
       }
-    })
-    this.submitSub = this.postsService.postComment(newComment, this.currentPost.id).subscribe(() => {
-      this.commentForm.reset(),
-      this.alert.success('Comment posted!')
-      if(this.isAdmin === '1' && this.currentPost.user.id.toString() !== this.userId) {
-        this.answers.data.push(newComment)
-      }
-    })
+      return key.toString()
+    } );
+    return
   }
 
   removeComment(commentId: string, postId: string) {

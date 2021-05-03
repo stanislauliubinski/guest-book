@@ -102,3 +102,11 @@ export interface AuthResponse {
         updated_at: string
     }
 }
+
+export interface httpResponse {
+    errors: {
+        errors: {
+            key: []
+        }
+    }
+}

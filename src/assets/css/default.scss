@@ -112,9 +112,10 @@ input, textarea {
         border: 2px solid red;
     }
 
-    &.ng-valid.ng-touched {
+    &.ng-valid.ng-touched:not(.ng-pristine) {
         border: 2px solid green;
     }
+
 }
 
 .first-letter {

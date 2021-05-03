@@ -35,6 +35,7 @@ export class AuthService {
 
   private setSession(res: AuthResponse) {
     localStorage.setItem('id_token', res.token.access_token)
+    localStorage.setItem('token_exp', res.token.expires_at)
     localStorage.setItem('user_id', res.user.id.toString())
     localStorage.setItem('is_admin', res.user.is_admin.toString())
     localStorage.setItem('user_name', res.user.name)
@@ -53,12 +54,14 @@ export class AuthService {
         loginRequired: true
       }
     })
+    
     localStorage.removeItem('id_token')
     localStorage.removeItem('user_id')
     localStorage.removeItem('is_admin')
     localStorage.removeItem('user_name')
     localStorage.removeItem('user_email')
     localStorage.removeItem('user_avatar')
+    localStorage.removeItem('token_exp')
     this.userIdSubject.next('')
   }
 

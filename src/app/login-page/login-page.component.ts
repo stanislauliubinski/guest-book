@@ -1,5 +1,6 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../alert.service';
@@ -31,22 +32,34 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    const user: User = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
-    }
+    const user: User = this.loginForm.value;
+    
     if (this.loginForm.invalid) {
-      this.alert.failure('Login failed!')
-    }
-    this.submitSub = this.auth.login(user).subscribe(() => {
-      this.loginForm.reset()
-      this.router.navigate(['/posts'])
-    }, () => {
-      this.alert.failure('Login failed')
-      this.loginForm.reset()
-      // this.loginForm.controls.email.setErrors({'invalid': true})
-      // this.loginForm.controls.password.setErrors({'invalid': true})
-    })
+      this.getFormValidationErrors()
+    } else {
+      this.submitSub = this.auth.login(user).subscribe(() => {
+        this.loginForm.reset()
+        this.router.navigate(['/posts'])
+      }, () => {
+        this.loginForm.reset()
+        this.loginForm.controls.email.setErrors({'invalid': true})
+        this.loginForm.controls.password.setErrors({'invalid': true})
+        this.loginForm.markAllAsTouched()
+      })
+  }}
+
+  getFormValidationErrors(): string {
+    Object.keys(this.loginForm.controls).forEach(key => {
+  
+      const controlErrors: ValidationErrors = this.loginForm.get(key).errors;
+      if (controlErrors != null) {
+        Object.keys(controlErrors).forEach(() => {
+          this.loginForm.markAllAsTouched()
+        });
+      }
+      return key.toString()
+    } );
+    return
   }
 
   ngOnDestroy() {

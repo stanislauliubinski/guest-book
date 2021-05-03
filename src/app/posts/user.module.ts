@@ -17,7 +17,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
             {path: 'posts', component: PostsComponent, canActivate: [AuthGuard], children: [
                 {path: ':id/comments', component: PostCommentsComponent, canActivate: [AuthGuard]}
             ]},
-            {path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard]} 
+            {path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard]}
+            // ,
+            // {path: '*', redirectTo: '/posts'} 
             ]),
         FormsModule,
         ReactiveFormsModule,

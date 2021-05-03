@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../alert.service';
@@ -69,15 +69,34 @@ export class SignupPageComponent implements OnInit {
     this.formData.set('name', this.signupForm.value.name)
     this.formData.set('password_confirmation', this.signupForm.value.password_confirmation)
     if (this.signupForm.invalid) {
-      this.alert.failure('Sign up failed!')
+      this.getFormValidationErrors()
+    } else {
+      this.submitSub = this.auth.register(this.formData).subscribe(() => {
+        this.signupForm.reset()
+        this.router.navigate(['/posts'])
+      }, () => {
+        this.signupForm.reset()
+        this.signupForm.controls.email.setErrors({'invalid': true})
+        this.signupForm.controls.name.setErrors({'invalid': true})
+        this.signupForm.controls.password.setErrors({'invalid': true})
+        this.signupForm.controls.password_confirmation.setErrors({'invalid': true})
+        this.signupForm.markAllAsTouched()
+      })
     }
-    this.submitSub = this.auth.register(this.formData).subscribe(() => {
-      this.signupForm.reset()
-      this.router.navigate(['/posts'])
-    }, () => {
-      this.alert.failure('Sign up failed')
-      this.signupForm.reset()
-    })
+  }
+
+  getFormValidationErrors(): string {
+    Object.keys(this.signupForm.controls).forEach(key => {
+  
+      const controlErrors: ValidationErrors = this.signupForm.get(key).errors;
+      if (controlErrors != null) {
+        Object.keys(controlErrors).forEach(() => {
+          this.signupForm.markAllAsTouched()
+        });
+      }
+      return key.toString()
+    } );
+    return
   }
 
   ngOnDestroy() {

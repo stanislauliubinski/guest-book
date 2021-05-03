@@ -34,7 +34,7 @@
 
   
 
-  <pagination-controls id="comments" *ngIf="currentPost.answers_count > 15" (pageChange)="handlePageChange($event)"></pagination-controls>
+  <pagination-controls id="comments" *ngIf="currentPost.answers_count >= 15" (pageChange)="handlePageChange($event)"></pagination-controls>
 
   <form class="input-container" 
     [formGroup]="commentForm" 
@@ -48,7 +48,7 @@
       </small>
     </div>
 
-    <button class="btn" type="submit" [disabled]="commentForm.invalid">Comment</button>
+    <button class="btn" type="submit">Comment</button>
   </form>
 </section>
 

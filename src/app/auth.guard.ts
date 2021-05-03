@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AlertService } from './alert.service';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -8,7 +9,8 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private alert: AlertService
   ) {}
 
   canActivate(
@@ -18,6 +20,7 @@ export class AuthGuard implements CanActivate {
       return true
     } else {
       this.auth.logout()
+      this.alert.warning('You must log in to view posts')
     }
   }  
 }
